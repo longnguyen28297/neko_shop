@@ -1,0 +1,59 @@
+
+.myTable th {
+	font-weight: bold;
+}
+.img_admin_product{
+	max-width: 100px;
+}
+.cont_desciption{
+	max-width: 200px;
+	overflow: scroll;
+	max-height: 100px;
+}
+.myThead{
+	background: #2a2a2a; /* Old browsers */
+
+}	
+.myThead th{
+	color: white !important;
+	text-align: center;
+}
+.error {
+	border: 1px solid #ff5050 !important;
+}
+.error_noti {
+	padding-top: 7px !important;
+	color: #ff5050;
+}
+.pdt30 {
+	padding-top: 30px  !important;
+}
+.label_checkbox {
+	text-transform: uppercase !important;
+	font-size: 15px;
+}
+.check-box {
+	padding: 0 15px;
+	float: left;
+}
+
+.form-select{
+	border: 1px solid #b3b3b3 !important;
+	text-align: center !important;
+}
+.form-selcet>option {
+text-align: center !important;
+}
+.child_select{
+	margin-left: 20px;
+}
+.card-form {
+	width: 440px;
+}
+.my_input {
+	padding-left: 45px;
+}
+.my_label{
+	position: absolute;
+	margin-left: 5px;
+}
