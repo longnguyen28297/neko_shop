@@ -2,9 +2,10 @@
 @section('adminCont')
 <div class="col-lg-8 offset-lg-2 col-md-12">
   <div class="card card-form" id="IProduct">
-    <h5 class="card-header">Thêm mới sản phẩm</h5>
+    <h5 class="card-header">Chỉnh sửa sản phẩm: {{$name_old}} - ID: <span>{{$id_product}}</span></h5>
     <div class="card-body">
       <form method="POST" role="form" class="" enctype="multipart/form-data">
+        <input type="hidden" id="id_product" name="id_product" value="{{$id_product}}">
         <label for="name" class="my_label col-form-label">Tên:</label>
         <input id="name" name="name" type="text" class="my_input form-control @if($errors->has('name')){{'error'}}@endif" value="@if(isset($name)){{$name}}@else{{$name_old}}@endif">
         @if ($errors->has('name'))
@@ -31,33 +32,7 @@
           <br />
           <!-- child-list -->
          <div id="size">
-            <div class="child_select">
-  <label for="">Size:</label>
-<div class="clearfix" id="size">
-  @foreach ($size as $size)
-  <div class="check-box">
-    <label for="">{{$size->name}}</label>
-    <input type="checkbox" name="id_size[]" id="id_size"  value="{{$size->id}}" class="">
-  </div>
-  @endforeach()
-</div>@if ($errors->has('id_size'))
-          <p class="error_noti">{{$errors->first('id_size')}}</p>
-          @endif
-            <br>
-<br />
-<label for="">Chất liệu:</label>
-<div class="clearfix" id="material">
-
-  @foreach($material as $material)
-  <div class="check-box">
-    <label for="">{{$material->name}}</label>
-    <input type="checkbox" name="id_material[]" id="id_material" value="{{$material->id}}" class="">
-  </div>
-  @endforeach()
-</div>
-            @if ($errors->has('id_material'))
-          <p class="error_noti">{{$errors->first('id_material')}}</p>
-          @endif</div>
+            
           </div>
           <!-- end -->
           <br />

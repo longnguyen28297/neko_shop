@@ -11,10 +11,11 @@
 		// body...
 		token = $('#token').val();
 		id_category = $('#id_category').val();
+		id_product = $('#id_product').val();
 		if (id_category=='') {
 			
 		}else{
-			$.post('./administrator/createSize', {'id_category': id_category, '_token':token}, function(data, textStatus, xhr) {
+			$.post('./administrator/createSize', {'id_category': id_category, 'id_product': id_product, '_token':token}, function(data, textStatus, xhr) {
                 /*optional stuff to do after success */
                 $("#size").html(data);
                 });
@@ -23,19 +24,7 @@
 
 window.onload = function()
 {
-    reLoadSize();
+    loadSize();
 };
  
-function reLoadSize()
-{
-   token = $('#token').val();
-		id_category = $('#id_category').val();
-		if (id_category=='') {
-			
-		}else{
-			$.post('./administrator/createSize', {'id_category': id_category, '_token':token}, function(data, textStatus, xhr) {
-                /*optional stuff to do after success */
-                $("#size").html(data);
-                });
-		}
-}
+

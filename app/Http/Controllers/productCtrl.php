@@ -42,11 +42,26 @@ class productCtrl extends Controller{
 		$material=  material::where('id_category', $request->id_category)->paginate();
 		$size=  size::where('id_category', $request->id_category)->paginate();
 		 if (request()->ajax()) {
-		 $id_category=$request->id_category;
-        return view('admin.list_mini.size',[
-        	'material'=>$material,
-        	'size'=>$size
-        ]);
+		 if ($request->id_product!='') {
+		 	$product= product::where('id', $request->id_product)->first();
+		 	$list_size=explode(',', $product->list_size);
+			$list_material=explode(',', $product->list_material);
+			$data = [
+				'list_size'=>$list_size,
+				'list_material'=>$list_material,
+				'material'=>$material,
+        		'size'=>$size,
+        		'id_category_old'=>$product->id_category,
+        		'id_category_new'=>$request->id_category
+			];
+		 }else {
+		 	$data = [
+		 		'material'=>$material,
+        		'size'=>$size
+		 	];
+		 }
+		 
+        return view('admin.list_mini.size',$data);
     }
  
 	}
@@ -115,12 +130,8 @@ class productCtrl extends Controller{
 	}else {
 		$data = $this->create();
 		$product_edit= product::where('id', $id)->first();
-		$material_old=  material::where('id_category', $product_edit->id_category)->paginate();
-		$size_old=  size::where('id_category', $product_edit->id_category)->paginate();
-		
-		$list_size=explode(',', $product_edit->list_size);
-		$list_material=explode(',', $product_edit->list_material);
 		return view('admin/edit_product',[
+			'id_product'=>$product_edit->id,
 			'name_old'=>$product_edit->name,
 			'price_old'=>$product_edit->price,
 			'id_category_old'=>$product_edit->id_category,
@@ -130,11 +141,8 @@ class productCtrl extends Controller{
 			'sale_old'=>$product_edit->sale,
 			'status_old'=>$product_edit->status,
 			'description_old'=>$product_edit->description,
-			'list_size_old'=>$list_size,
-			'list_material_old'=>$list_material,
-			'images_old'=>$product_edit->images,
-			'material_old'=>$material_old,
-			'size_old'=>$size_old
+			'images_old'=>$product_edit->images
+
 
 		],$data);
 	}
@@ -174,6 +182,8 @@ function update($id, Request $request)
 		}
 		$productEdit = product::where('id',$id)->first();
 		$productUpdate = product::where('id',$id);
+		$id_material = $request->input('id_material');
+		$id_size = $request->input('id_size');
 		$list_material = implode(',', $id_material);
 		$list_size = implode(',', $id_size);
 		if ($request->file('images')=='') {
