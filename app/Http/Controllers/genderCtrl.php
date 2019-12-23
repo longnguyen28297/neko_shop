@@ -18,10 +18,9 @@ class genderCtrl extends Controller{
     $validatedData = $controller->validatedDataEdit($request);
     if ($validatedData->fails()) {
         
-        return View('admin/insert_gender',[
-            'name'=>$request->name,
-            'status'=>($request->status)
-        ])->withErrors($validatedData);
+        return $this->create()->withErrors($validatedData)->with([
+        'name'=>$request->name
+      ]);
         
     }else {
       gender::create([

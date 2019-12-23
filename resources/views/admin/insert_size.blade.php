@@ -16,18 +16,18 @@
                   <select name="id_category" class="custom-select col-auto @if ($errors->has('id_category')){{'error'}}@endif">
                     <option value="">Danh mục</option>
                     @foreach($category as $cate)
-                    <option value="{{$cate->id}}">{{$cate->name}}</option>
+                    <option @if (isset($id_category)&&$id_category==$cate->id){{'selected'}}@endif value="{{$cate->id}}">{{$cate->name}}</option>
                     @endforeach()
                 </select>
                 @if ($errors->has('id_category'))
                 <p class="error_noti">{{$errors->first('id_category')}}</p>
                 @endif
             </div>
-                    
-                    <button type="submit" class="btn btn-dark" name="add_prod">Thêm</button>
-                    <input type="hidden" name="_token" value="{{csrf_token()}}">
-                </form>
-            </div>
-        </div>
+            
+            <button type="submit" class="btn btn-dark" name="add_prod">Thêm</button>
+            <input type="hidden" name="_token" value="{{csrf_token()}}">
+        </form>
     </div>
-    @stop()
+</div>
+</div>
+@stop()

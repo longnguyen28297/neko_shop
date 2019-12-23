@@ -57,3 +57,6 @@ text-align: center !important;
 	position: absolute;
 	margin-left: 5px;
 }
+.form-element{
+	margin: 30px 0 !important;
+}

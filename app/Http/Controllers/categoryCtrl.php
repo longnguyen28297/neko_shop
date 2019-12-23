@@ -6,7 +6,7 @@ use File;
 
 class categoryCtrl extends Controller{
     function index(){
-    	$category= Category::select('id','name','status','images','created_at','updated_at')->orderBy('id','DESC')->paginate(10);
+    	$category= Category::select('id','name','status','images','created_at','updated_at')->orderBy('id','DESC')->paginate();
     	return view('admin/list_category',[
     		'category'=>$category
     	]);
@@ -19,10 +19,10 @@ class categoryCtrl extends Controller{
 		$validatedData = $controller->validatedData($request);
 		if ($validatedData->fails()) {
 			
-			return View('admin/insert_category',[
+			return $this->create()->withErrors($validatedData)->with([
 				'name'=>$request->name,
-				'status'=>($request->status)
-			])->withErrors($validatedData);
+				'status'=>$request->status
+			]);
 				
 		}else {
 		$images=$request->file('images')->getClientOriginalName();
@@ -44,6 +44,8 @@ class categoryCtrl extends Controller{
 	function edit($id)
 	{if ($id=='') {
 		return redirect()->to('administrator/category');
+	}elseif((Category::where('id', $id))->count()<1){
+		return redirect()->to('administrator/category');
 	}else {
 		$category_edit= Category::where('id', $id)->first();
     	return view('admin/edit_category',[
@@ -54,7 +56,13 @@ class categoryCtrl extends Controller{
 
 	}
 	function update($id, Request $request){
-		$controller = new Controller();
+		if ($id=='') {
+		return redirect()->to('administrator/category');
+	}elseif((Category::where('id', $id))->count()<1){
+		return redirect()->to('administrator/category');
+	}else {
+		
+	$controller = new Controller();
 		$validatedData = $controller->validatedDataEdit($request);
 		if ($validatedData->fails()) {
 			
@@ -85,11 +93,10 @@ class categoryCtrl extends Controller{
 		]);
 		return redirect()->to('administrator/category');
 	}
-}
+}}
 	function delete($id)
 	{
 		$category_deltete= Category::where('id', $id)->delete();
-		$category= Category::select('id','name','status','images','created_at','updated_at')->orderBy('id','DESC')->paginate(10);
     	return redirect()->to('administrator/category');
 	}
     

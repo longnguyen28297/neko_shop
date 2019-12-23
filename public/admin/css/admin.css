@@ -1,0 +1,49 @@
+.badgebox
+{
+    opacity: 0;
+}
+
+.badgebox + .badge
+{
+    text-indent: -999999px;
+	width: 27px;
+}
+
+.badgebox:focus + .badge
+{
+    box-shadow: inset 0px 0px 5px;
+}
+
+.badgebox:checked + .badge
+{
+	text-indent: 0;
+}
+.images_edit{
+    background-color: rgba(0, 0, 0, 0.03);
+    width: 100px;
+    border-radius: 5px;
+    margin: 10px;
+    float: left;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+}
+.form-group{
+    clear: both;
+}
+.img_edit{
+    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+}
+.delete_img_product:hover{
+    background-color: rgba(0, 0, 0, 0.125);
+}
+.text-dark:hover{
+    text-decoration: none;
+}
+.fontsz11{
+    font-size: 11px;
+}
+.error_noti {
+   color:  #dc3545!important
+}
+.btn {
+    margin: 1px;
+}

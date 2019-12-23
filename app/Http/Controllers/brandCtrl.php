@@ -8,7 +8,7 @@ use Validator;
 class brandCtrl extends Controller{
 
 	function index(){
-		$brand= brand::select('id','name','status','images','created_at','updated_at')->orderBy('id','DESC')->paginate(10);
+		$brand= brand::select('id','name','status','images','created_at','updated_at')->orderBy('id','DESC')->paginate();
 		return view('admin/list_brand',[
 			'brand'=>$brand
 		]);
@@ -21,7 +21,7 @@ class brandCtrl extends Controller{
 		$validatedData = $controller->validatedData($request);
 		if ($validatedData->fails()) {
 			
-			return View('admin/insert_brand',[
+			return $this->create()->with([
 				'name'=>$request->name,
 				'status'=>($request->status)
 			])->withErrors($validatedData);
@@ -46,10 +46,9 @@ class brandCtrl extends Controller{
 	}
 	function edit($id)
 	{if ($id=='') {
-		$brand= brand::select('id','name','status','images','created_at','updated_at')->orderBy('id','DESC')->paginate(10);
-    	return view('admin/list_brand',[
-    		'brand'=>$brand
-    	]);
+		return redirect()->to('administrator/brand');
+	}elseif((brand::where('id', $id))->count()<1){
+		return redirect()->to('administrator/brand');
 	}else {
 		$brand_edit= brand::where('id', $id)->first();
     	return view('admin/edit_brand',[
@@ -60,6 +59,11 @@ class brandCtrl extends Controller{
 
 	}
 	function update($id, Request $request){
+		if ($id=='') {
+		return redirect()->to('administrator/brand');
+	}elseif((brand::where('id', $id))->count()<1){
+		return redirect()->to('administrator/brand');
+	}else {
 		$controller = new Controller();
 		$validatedData = $controller->validatedDataEdit($request);
 		if ($validatedData->fails()) {
@@ -91,6 +95,7 @@ class brandCtrl extends Controller{
 		]);
 		return redirect()->to('administrator/brand');
 	}
+}
 }
 	function delete($id)
 	{

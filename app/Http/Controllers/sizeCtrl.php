@@ -4,26 +4,33 @@ use App\size;
 use App\Category;
 use Illuminate\Http\Request;
 use File;
+
 class sizeCtrl extends Controller{
     function index(){
-        $size= size::select('id','name','created_at','updated_at')->orderBy('id','DESC')->paginate(10);
+        $size= size::all();
         return view('admin/list_size',[
             'size'=>$size
         ]);
     }
     function create(){
-      $category= Category::select('id','name')->paginate();
-      return view('admin/insert_size',['category'=>$category]);
+      $category= Category::all();
+      return $category;
+  }
+  function new()
+  {
+    $category = $this->create();
+     return view('admin/insert_size',[
+            'category'=>$category
+        ]);
   }
   function insert(Request $request){
     $controller = new Controller();
     $validatedData = $controller->validatedDataEdit($request);
     if ($validatedData->fails()) {
-        
-        return View('admin/insert_size',[
-            'name'=>$request->name,
-            'status'=>($request->status)
-        ])->withErrors($validatedData);
+     return $this->new()->withErrors($validatedData)->with([
+        'name'=>$request->name,
+        'id_category'=>$request->id_category
+     ]);
         
     }else {
       size::create([
@@ -42,10 +49,11 @@ function edit($id)
     if ($size_edit==null) {
         return redirect()->to('administrator/size');
     }else {
-        $category= Category::select('id','name')->paginate();
+        $category= Category::all();
         return view('admin/edit_size',[
-            'size_edit'=>$size_edit
-        ])->with($category);
+            'size_edit'=>$size_edit,
+            'category'=>$category
+        ]);
         
     }
 }
@@ -67,7 +75,7 @@ function update($id, Request $request){
             
             return $this->edit($id)->withErrors($validatedData)->with([
                 'name'=>$request->name,
-                'status'=>$request->status
+                'id_category'=>$request->id_category
             ]);
             
         }else {

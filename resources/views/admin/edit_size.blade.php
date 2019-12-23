@@ -16,7 +16,7 @@
                   <select name="id_category" class="custom-select col-auto @if ($errors->has('id_category')){{'error'}}@endif">
                     <option value="">Danh mục</option>
                     @foreach($category as $cate)
-                    <option @if (isset($id_category)&& $id_category==$gender->id){{'selected'}} @elseif (($product_edit->id_category)==$cate->id){{'selected'}}@endif value="{{$cate->id}}">{{$cate->name}}</option>
+                    <option @if (isset($id_category)&& $id_category==$cate->id){{'selected'}}@elseif (($size_edit->id_category)==$cate->id){{'selected'}}@endif value="{{$cate->id}}">{{$cate->name}}</option>
                     @endforeach()
                 </select>
                 @if ($errors->has('id_category'))

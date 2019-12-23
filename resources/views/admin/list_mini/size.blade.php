@@ -7,17 +7,15 @@
 		<input type="checkbox" name="id_size[]"  
 			<?php if (isset($id_category_old)&&$id_category_old!=''&&$id_category_old=$id_category_new) {
 				if (isset($list_size)&&$list_size!='') {
-				for ($i = 0; $i < count($list_size); $i++) {
-					if ($list_size[$i]==$size->id) {
+					if (in_array($size->id, $list_size)) {
 						echo 'checked';
-					}
 				}
 			}
-		} elseif (isset($siz)) {
+		} elseif (isset($size)) {
 			
 		}
 			?>
-		id="id_size"  value="{{$size->id}}" class="">
+		id="id_size"  value="{{$size->id}}">
 		
 	</div>
 	@endforeach()
@@ -30,14 +28,12 @@
 		<label for="">{{$material->name}}</label>
 		<input type="checkbox" <?php if (isset($id_category_old)&&$id_category_old!=''&&$id_category_old=$id_category_new) {
 				if (isset($list_material)&&$list_material!='') {
-				for ($i = 0; $i < count($list_material); $i++) {
-					if ($list_material[$i]==$material->id) {
+				if (in_array($material->id, $list_material)) {
 						echo 'checked';
-					}
 				}
 			}
 		}
-			?> name="id_material[]" id="id_material" value="{{$material->id}}" class="">
+		?> name="id_material[]" id="id_material" value="{{$material->id}}" class="">
 	</div>
 	@endforeach()
 </div>

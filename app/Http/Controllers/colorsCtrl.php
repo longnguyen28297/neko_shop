@@ -5,7 +5,7 @@ use Illuminate\Http\Request;
 use File;
 class colorsCtrl extends Controller{
     function index(){
-    	$colors= colors::select('id','name','created_at','updated_at')->orderBy('id','DESC')->paginate(10);
+    	$colors= colors::select('id','name','created_at','updated_at')->orderBy('id','DESC')->paginate();
     	return view('admin/list_colors',[
     		'colors'=>$colors
     	]);
@@ -18,10 +18,9 @@ class colorsCtrl extends Controller{
     $validatedData = $controller->validatedDataEdit($request);
     if ($validatedData->fails()) {
         
-        return View('admin/insert_colors',[
-            'name'=>$request->name,
-            'status'=>($request->status)
-        ])->withErrors($validatedData);
+        return $this->create()->withErrors($validatedData)->with([
+        'name'=>$request->name
+      ]);
         
     }else {
       colors::create([

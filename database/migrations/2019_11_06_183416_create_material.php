@@ -17,7 +17,7 @@ class CreateMaterial extends Migration
             $table->bigIncrements('id');
             $table->string('name' , 255);
             $table->unsignedBigInteger('id_category');
-            $table->foreign('id_category')->references('id')->on('category');
+            $table->foreign('id_category')->references('id')->on('category')->onDelete('cascade');;
             $table->timestamps();
         });
     }

@@ -12,7 +12,7 @@ class materialCtrl extends Controller{
         ]);
     }
     function create(){
-      $category= Category::select('id','name')->paginate();
+      $category= Category::all();
       return view('admin/insert_material',['category'=>$category]);
   }
   function insert(Request $request){
@@ -20,10 +20,10 @@ class materialCtrl extends Controller{
     $validatedData = $controller->validatedDataEdit($request);
     if ($validatedData->fails()) {
         
-        return View('admin/insert_material',[
-            'name'=>$request->name,
-            'status'=>($request->status)
-        ])->withErrors($validatedData);
+        return $this->create()->withErrors($validatedData)->with([
+        'name'=>$request->name,
+        'id_category'=>$request->id_category
+      ]);
         
     }else {
       material::create([
@@ -42,10 +42,11 @@ function edit($id)
     if ($material_edit==null) {
         return redirect()->to('administrator/material');
     }else {
-        $category= Category::select('id','name')->paginate();
+        $category= Category::all();
         return view('admin/edit_material',[
-            'material_edit'=>$material_edit
-        ])->with($category);
+            'material_edit'=>$material_edit,
+            'category'=>$category
+        ]);
         
     }
 }

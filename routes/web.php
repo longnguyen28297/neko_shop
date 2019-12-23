@@ -101,7 +101,7 @@ Route::get('/delMaterial/{id}',[
 ]);
 
 Route::get('/size','sizeCtrl@index');
-Route::get('/insertSize','sizeCtrl@create');
+Route::get('/insertSize','sizeCtrl@new');
 Route::post('/insertSize','sizeCtrl@insert');
 Route::get('/editSize/{id}',[
 	'uses'=> 'sizeCtrl@edit',
@@ -131,17 +131,13 @@ Route::get('/delColors/{id}',[
 	'uses'=> 'colorsCtrl@delete',
 	'as'=>'deleteColors'
 ]);
+//product
 Route::get('/product','productCtrl@index');
 Route::get('/insertProduct','productCtrl@returnCreat');
 //create size
 Route::post('/createSize',[
 	'uses'=> 'productCtrl@createSize',
 	'as'=>'createSizePost'
-]);
-//
-Route::get('/createMaterial/{id}',[
-	'uses'=> 'productCtrl@createMaterial',
-	'as'=>'createMaterial'
 ]);
 Route::post('/insertProduct','productCtrl@insert');
 Route::get('/editProduct/{id}',[
@@ -156,6 +152,11 @@ Route::get('/delProduct/{id}',[
 	'uses'=> 'productCtrl@delete',
 	'as'=>'deleteProduct'
 ]);
+Route::post('/delImgProduct',[
+	'uses'=> 'imagesCtrl@delete',
+	'as'=>'delImgProduct'
+]);
+//end product
 Route::get('/','adminCtrl@index');
 //login
 Route::get('/login','UserAdminCtrl@getLogin');

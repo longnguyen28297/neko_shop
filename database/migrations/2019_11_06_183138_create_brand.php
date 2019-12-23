@@ -17,7 +17,7 @@ class CreateBrand extends Migration
             $table->bigIncrements('id');
             $table->string('name' , 255);
             $table->tinyInteger('status');
-            $table->string('images' , 1000);
+            $table->text('images' , 1000);
             $table->timestamps();
         });
     }
